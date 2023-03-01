@@ -1,0 +1,67 @@
+#include <iostream> 
+using namespace std; 
+void OutplaceInsertionSort(int arr[],int n) 
+{ 
+ int sorted[n]; 
+ sorted[0] = arr[0]; 
+ int sortedcnt = 1; 
+ for(int i = 1; i < n; ++i) 
+ { 
+ int j; 
+ for(j = sortedcnt - 1; j >= 0; --j) 
+ { 
+ if(sorted[j]>arr[i]) 
+ { 
+ sorted[j+1]=sorted[j]; 
+ } 
+ else 
+ { 
+ break; 
+ } 
+ } 
+ sorted[j+1] = arr[i]; 
+ sortedcnt++; 
+ } 
+ for(int i = 0; i < n; i++) { 
+ arr[i] = sorted[i]; 
+ } 
+} 
+bool isSorted(int arr[], int n) 
+{ 
+ for(int i = 0; i < n-1; i++) 
+ { 
+ if(arr[i]>arr[i+1]) 
+ { 
+ return false; 
+ } 
+ } 
+ return true; 
+} 
+int main() 
+{ 
+ int l; 
+ cout<<"Enter Length of your data:"<<endl; 
+ cin>>l; 
+ int d; 
+ int arr[l]; 
+ for (int i = 0; i < l; ++i) 
+ { 
+ cout<<"Type Data:" << endl; 
+ cin>>d; 
+ arr[i]=d; 
+ } 
+ int n=sizeof(arr)/sizeof(arr[0]); 
+ OutplaceInsertionSort(arr,n); 
+ for(int i = 0; i < n; ++i) 
+ { 
+ cout<<arr[i]<<" "; 
+ } 
+ if(isSorted(arr, n)) 
+ { 
+ cout<<"is sorted"<<endl; 
+ } 
+ else 
+ { 
+ cout<<"not sorted"<<endl; 
+ } 
+} 
