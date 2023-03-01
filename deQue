@@ -1,0 +1,130 @@
+#include <iostream> 
+using namespace std; 
+const int Size=6; 
+class Deque 
+{ 
+private: 
+ int front, rear; 
+ int queue[Size]; 
+public: 
+ Deque() 
+ { 
+ front = rear = -1; 
+ } 
+ bool isFull() 
+ { 
+ return (rear + 1) % Size == front; 
+ } 
+ bool isEmpty() 
+ { 
+ return front == -1 && rear == -1; 
+ } 
+ void insertFront(int data) 
+ { 
+ if (isFull()) 
+ { 
+ cout << "Queue is Full" << endl; 
+ } 
+ else if (isEmpty()) 
+ { 
+ front = rear = 0; 
+ } 
+ else if (front == 0) 
+ { 
+ front = Size - 1; 
+ } 
+ else 
+ { 
+ front--; 
+ } 
+ queue[front] = data; 
+ } 
+ void insertRear(int data) 
+ { 
+ if (isFull()) 
+ { 
+ cout << "Queue is Full" << endl; 
+ } 
+ else if (isEmpty()) 
+ { 
+ front = rear = 0; 
+ } 
+ else 
+ { 
+ rear = (rear + 1) % Size; 
+ } 
+ queue[rear] = data; 
+ } 
+ void deleteFront() 
+ { 
+ if (isEmpty()) 
+ { 
+ cout << "Queue is Empty" << endl; 
+ return; 
+ } 
+ else if (front == rear) 
+ { 
+ front = rear = -1; 
+ } 
+ else 
+ { 
+ front = (front + 1) % Size; 
+ } 
+ } 
+ void deleteRear() 
+ { 
+ if (isEmpty()) 
+ { 
+ cout << "Queue is Empty" << endl; 
+ return; 
+ } 
+ else if (front == rear) 
+ { 
+ front = rear = -1; 
+ } 
+ else if (rear == 0) 
+ { 
+ rear = Size - 1; 
+ } 
+ else 
+ { 
+ rear--; 
+ } 
+ } 
+ void display() 
+ { 
+ if (isEmpty()) 
+ { 
+ cout << "Queue is Empty" << endl; 
+ return; 
+ } 
+ for (int i = front; i != rear; i = (i + 1) % Size) 
+ { 
+ cout << queue[i] << " "; 
+ } 
+ cout << queue[rear] << endl; 
+ } 
+}; 
+int main() 
+{ 
+ Deque dq; 
+ int dat; 
+ for (int i = 0; i < Size-1; ++i) 
+ { 
+ cout << "Insert Rear Values" << endl; 
+ cin >> dat; 
+ dq.insertRear(dat); 
+ } 
+ dq.display(); 
+ cout << "Insert Front Value" << endl; 
+ cin >> dat; 
+ dq.insertFront(dat); 
+ dq.display(); 
+ cout << "Delete Front Values" << endl; 
+ dq.deleteFront(); 
+ dq.display(); 
+ cout << "Delete Rear Values" << endl; 
+ dq.deleteRear(); 
+ dq.display(); 
+ return 0; 
+} 
