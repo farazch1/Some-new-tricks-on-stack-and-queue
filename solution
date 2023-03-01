@@ -1,0 +1,165 @@
+#include <iostream> 
+using namespace std; 
+const int Size=5; 
+const int Size2=Size-1; 
+class Queue 
+{ 
+private: 
+ int front,rear; 
+ int queue[Size]; 
+ int front2,rear2; 
+ int queue2[Size2]; 
+ int i1; 
+ int i2; 
+public: 
+ Queue() 
+ { 
+ front=rear=-1; 
+ front2=rear2=-1; 
+ } 
+ bool isFull() 
+ { 
+ return (rear+1)%Size ==front; 
+ } 
+ bool isEmpty() 
+ { 
+ return front==-1 && rear==-1 ; 
+ } 
+ void EnQueue(int data) 
+ { 
+ if(isFull()) 
+ { 
+ cout<<"Queue is Full"<<endl; 
+ } 
+ if(isEmpty()) 
+ { 
+ front=rear=0; 
+ } 
+ else 
+ { 
+ rear=(rear+1)%Size; 
+ } 
+ queue[rear]=data; 
+ } 
+ int Dequeue() 
+ { 
+ if(isEmpty()) 
+ { 
+ cout<<"Queue is Empty"<<endl; 
+ return 0; 
+ } 
+ if(front==rear) 
+ { 
+ front=rear=-1; 
+ } 
+ else 
+ { 
+ front=(front+1)%Size; 
+ return front; 
+ } 
+ } 
+ void display() 
+ { 
+ if(isEmpty()) 
+ { 
+ cout<<"Queue is Empty"<<endl; 
+ return; 
+ } 
+ for (int i = front; i != rear; i = (i + 1) % Size) 
+ { 
+ cout << queue[i] << " "; 
+ } 
+ cout << queue[rear] << endl; 
+ } 
+ /////////////Queue2//////////// 
+ bool isFull2() 
+ { 
+ return (rear2+1)%Size2 ==front2; 
+ } 
+ bool isEmpty2() 
+ { 
+ return front2==-1 && rear2==-1 ; 
+ } 
+ void EnQueue2(int data2) 
+ { 
+ if(isFull2()) 
+ { 
+ cout<<"Queue2 is Full"<<endl; 
+ } 
+ if(isEmpty2()) 
+ { 
+ front2=rear2=0; 
+ } 
+ else 
+ { 
+ rear2=(rear2+1)%Size2; 
+ } 
+ queue2[rear2]=data2; 
+ } 
+ void Dequeue2() 
+ { 
+ if(isEmpty2()) 
+ { 
+ cout<<"Queue is Empty"<<endl; 
+ } 
+ if(front2==rear2) 
+ { 
+ front2=rear2=-1; 
+ } 
+ else 
+ { 
+ front2=(front2+1)%Size2; 
+ } 
+ } 
+ void display2() 
+ { 
+ if(isEmpty2()) 
+ { 
+ cout<<"Queue is Empty"<<endl; 
+ } 
+ for (int i = front2; i != rear2; i = (i + 1) % Size2) 
+ { 
+ cout << queue2[i] << " "; 
+ } 
+ cout << queue2[rear2] << endl; 
+ } 
+ void destacking() 
+ { 
+ while (front!=rear) 
+ { 
+ i1=front; 
+ EnQueue2(queue[i1]); 
+ Dequeue(); 
+ } 
+ Dequeue(); 
+ while (front2!=rear2) 
+ { 
+ i2=front2; 
+ EnQueue(queue2[i2]); 
+ Dequeue2(); 
+ } 
+ EnQueue(queue2[front2]); 
+ Dequeue2(); 
+ } 
+}; 
+int main() { 
+ int choice; 
+ Queue qu; 
+ int dat; 
+ cout<<"This stack is set to size 5"<<endl; 
+ for (int i = 0; i < Size; ++i) 
+ { 
+ cout << "Put in Values" << endl; 
+ cin>>dat; 
+ qu.EnQueue(dat); 
+ } 
+ cout << "Current stack: "; 
+ qu.display(); 
+ cout << "Destacked one time" << endl<<endl; 
+ qu.destacking(); 
+ qu.display(); 
+ cout << "Destacked 2nd time" << endl<<endl; 
+ qu.destacking(); 
+ qu.display(); 
+ return 0; 
+} 
